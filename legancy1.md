@@ -4,21 +4,35 @@ The result is not obvious, maybe it's because the model used is not big enough, 
 
 ###  MLP(1 hidden layer,512 units) on MNIST dataset
 
-Table 1: I run an epoch warmup and then meassure the total time of 20 epochs. 
+Table 1: the 1st time I compared the models
 
 | |No.| epoch | batch_size | learning_rate | optimizer | time | memory |
 |-|-|-|-|-|-|-|-|
-| base on GTX3090 |-| 20 | 32 | 1e-3 | Adam |-|-|
-|tensorflow 2.6.0 |1|"|"|"|"|30s|1.2G|
-| no JIT prefetch4 |2|"|"|"|"|30s|1.2G|
-| |3|"|"|"|"|30s|1.2G|
-|pytorch 1.9.1 | 1 |"|"|"|"|48s|1.5G|
-| worker4 |2|"|"|"|"|48s|1.5G|
-| |3|"|"|"|"|47s|1.5G|
-|jittor 1.3.1 | 1 |"|"|"|"|26s|0.77G|
-| worker4 |2|"|"|"|"|25s|0.77G|
-| |3|"|"|"|"|25s|0.77G|
+| base |-| 20 | 32 | 1e-3 | Adam |-|-|
+|tensorflow 2.6.0 |1|"|"|"|"|36s|1.2G|
+|  |2|"|"|"|"|36s|1.2G|
+|pytorch 1.9.1 | 1 |"|"|"|"|84s|1.5G|
+|  |2|"|"|"|"|87s|1.5G|
+| |3|"|"|"|"|85s|1.5G|
+|jittor 1.3.1 | 1 |"|"|"|"|82s|0.77G|
+| |2|"|"|"|"|78s|0.77G|
+| |3|"|"|"|"|79s|0.77G|
 
+Table 2: the 2nd time I compared the models
+
+| |No.| epoch | batch_size | learning_rate | optimizer | time |
+|-|-|-|-|-|-|-|
+| base |-| 20 | 32 | 1e-3 | Adam |-|
+|tf + JIT |1| " | " | " | " |28.4s|
+| |2|"|"|"|"|28.1s|
+|tf without JIT |1|"|"|"|"|25.4s|
+| |2|"|"|"|"|26.2s|
+|pytorch | 1 |"|"|"|"|83s|
+| |2|"|"|"|"|80s|
+|jittor | 1 |"|"|"|"|69s|
+| |2|"|"|"|"|67s|
+
+This time I truned on and off the JIT option of tensorflow, to see if JIT would donate speed-up. It seems that JIT takes longer time for the reason that it takes time for JIT to compile, but it happens so fast. (But the following test I exclude the compiling time.)
 
 ### ResNet50 on CIFAR10 dataset
 

@@ -1,3 +1,11 @@
+
+## Result
+It seems that all the three do not differ significantly from others.  
+Also, the performance would vary from different working environments.  
+So in general fields, tensorflow does **not** run slower than pytorch. And jittor is worthy of being expected .
+
+## To begin with
+
 I've tried MLP and Resnet50 model with tensorflow, pytorch and jittor. For me, I'd like to find out which one can train the model faster.  
 
 The result is not obvious, maybe it's because the model used is not big enough, or maybe it depends on PC.
@@ -60,18 +68,15 @@ Table 3: test on GTX1070Ti
 
 Table 4: The input data has the same size as ImageNet, AKA (224,224) with 3 channels. I run 10 steps warmup.
 
-| |No.| steps | batch_size | lr | optimizer | time | GPU memory | CUDA |
-|-|-|-|-|-|-|-|-|-|
-| base on GTX1070Ti |-| 1000 | 8 | 0.001 | Adam      |-|-|-|
-|tensorflow 2.6.3 |1|"|"|"|"|3'44"|7.1G|86%|
-| --set JIT |2|"|"|"|"|3'45"|||
-| |3|"|"|"|"|3'41"|||
-|pytorch 1.11.0 | 1 |"|"|"|"|3'47"|3.2G|100%|
-|  |2|"|"|"|"|3'47"|||
-| |3|"|"|"|"|3'40"|||
-|jittor 1.3.1 | 1 |"|"|"|"|3'26"|4.4G|90%|
-|  |2|"|"|"|"|3'26"|||
-| |3|"|"|"|"| 3'21" |            |      |
-## Result
-It seems that all the three do not differ significantly from others. Emmm...  
-Also, the performance would vary from different working environments.
+| |No.| steps | batch_size | lr | optimizer | time | GPU memory |
+|-|-|-|-|-|-|-|-|
+| base on GTX1070Ti |-| 1000 | 8 | 0.001 | Adam      |-|-|
+|tensorflow 2.6.3 |1|"|"|"|"|3'44"|7.1G|
+| --set JIT |2|"|"|"|"|3'45"||
+| |3|"|"|"|"|3'41"||
+|pytorch 1.11.0 | 1 |"|"|"|"|3'47"|3.2G|
+|  |2|"|"|"|"|3'47"||
+| |3|"|"|"|"|3'40"||
+|jittor 1.3.1 | 1 |"|"|"|"|3'26"|4.4G|
+|  |2|"|"|"|"|3'26"||
+| |3|"|"|"|"| 3'21" |            |
